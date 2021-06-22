@@ -1,12 +1,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
-
 require('dotenv/config')
 
-var prefix = '&'
+var prefix = '#'
 
-var comandos = ['escoliose', 'monki flip', 'monki ice', 'amogus', 'comandos' ]
+var comandos = ['escoliose', 'monki flip', 'monki ice', 'amogus', 'comandos', 'CoinFlip "sua escolha"' ]
 
 client.on('ready', () => {
     console.log('Logged as => ' + client.user.tag);
@@ -15,6 +14,7 @@ client.on('ready', () => {
 })
 
 client.on("message", async msg => {
+    let random;
     message = msg.content.split('')
     
     if (message[0] === prefix) {
@@ -60,17 +60,39 @@ client.on("message", async msg => {
                     msg.channel.send('Você precisa estar num canal de voz para executar este comando')
                 }
                 break;
-
             case 'comandos':
                 msg.channel.send(comandos)
                 break;
+            case 'CoinFlip cara':
+                msg.channel.send('Então eu escolho coroa :coin:, GL HF')
+                msg.channel.send('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
+                random = Math.floor(Math.random() * 2)
+                if(random == 1){
+                    setTimeout(function () { msg.channel.send('Caiu cara :coin: , você ganhou! :crown: :clap: '); }, 2000);
+                    
+                } else {
+                    setTimeout(function () { msg.channel.send('Caiu coroa :coin: , você perdeu! :flushed: :clap: '); }, 2000);
+                }
 
+                break;
+            case 'CoinFlip coroa':
+                msg.channel.send('Então eu escolho cara :coin:, GL HF')
+                msg.channel.send('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
+                random = Math.floor(Math.random() * 2)
+                if (random == 1) {
+                    setTimeout(function () { msg.channel.send('Caiu coroa :coin: , você ganhou! :flushed: :clap: '); }, 2000);
+                } else {
+                    setTimeout(function () { msg.channel.send('Caiu cara :coin: , você perdeu! :flushed: :clap: '); }, 2000);
+                }
+                break;
             default:
                 msg.channel.send('Comando não encontrado vadia')
                 break;
         }
     }
 })
+
+
 
 // client.on('ready', () => {
 //     // List servers the bot is connected to
