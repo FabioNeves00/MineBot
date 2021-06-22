@@ -3,91 +3,141 @@ const client = new Discord.Client();
 const ytdl = require('ytdl-core');
 require('dotenv/config')
 
-var prefix = '#'
+let prefix = process.env.prefix
 
-var comandos = ['escoliose', 'monki flip', 'monki ice', 'amogus', 'comandos', 'CoinFlip "sua escolha"' ]
+var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado']
+var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario']
 
 client.on('ready', () => {
     console.log('Logged as => ' + client.user.tag);
-    client.user.setActivity('Minecraft LMAO', {type: 'PLAYING'})
+    client.user.setActivity('Minecraft LMAO', { type: 'PLAYING' })
 
 })
 
 client.on("message", async msg => {
+    let canal = msg.channel
     let random;
-    message = msg.content.split('')
-    
-    if (message[0] === prefix) {
-        message.splice(0, 1)
-        message = message.join('')
-        switch (message) {
-            case 'escoliose':
-                const escoliose = new Discord.MessageEmbed()
-                    .setColor('#0099ff') // cor do ladinho
-                    .setTitle('Escoliose') //titulo
-                    .setURL('https://i.imgur.com/15aOQP4.png') // url de click
-                    .setAuthor('escoliose?', 'https://i.imgur.com/15aOQP4.png', 'https://i.imgur.com/15aOQP4.png')
-                    .setDescription('tens escoliosis?')
-                    .setThumbnail('https://i.imgur.com/15aOQP4.png')
-                    .addFields(
-                        { name: 'Escoliose', value: 'escoliose' },
-                        { name: '\u200B', value: '\u200B' },
-                        { name: 'escoliose', value: 'escoliose', inline: true }
-                    )
-                    .setImage('https://i.imgur.com/15aOQP4.png')
-                    .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');
-                msg.channel.send(escoliose)
-                break;
+    if (msg.author.id != client.user.id) {
+        message = msg.content.split('')
+        if (message[0] === prefix) {
+            message.splice(0, 1)
+            message = message.join('')
+            var args = message.trim().split(" ");
+            switch (args[0]) {
+                case 'escoliose':
+                    if (args[1] === 'help') {
+                        canal.send('O comando #escoliose envia uma certa mensagem proibida em 126 países diferentes')
+                        canal.send('Use o #comandos para ver seus parâmetros')
+                    }
+                    const escoliose = new Discord.MessageEmbed()
+                        .setColor('#0099ff') // cor do ladinho
+                        .setTitle('Escoliose') //titulo
+                        .setURL('https://i.imgur.com/15aOQP4.png') // url de click
+                        .setAuthor('escoliose?', 'https://i.imgur.com/15aOQP4.png', 'https://i.imgur.com/15aOQP4.png')
+                        .setDescription('tens escoliosis?')
+                        .setThumbnail('https://i.imgur.com/15aOQP4.png')
+                        .addFields(
+                            { name: 'Escoliose', value: 'escoliose' },
+                            { name: '\u200B', value: '\u200B' },
+                            { name: 'escoliose', value: 'escoliose', inline: true }
+                        )
+                        .setImage('https://i.imgur.com/15aOQP4.png')
+                        .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');
+                    canal.send(escoliose)
+                    break;
 
-            case 'monki flip':
-                msg.channel.send('https://media.tenor.com/images/f8275fe31d37d85cc085d0f0bb79c2d5/tenor.gif')
-                break;
-
-            case 'monki ice':
-                msg.channel.send('https://media1.tenor.com/images/7644e771ae17d0221c10bfc0369b9719/tenor.gif?itemid=20254327')
-                break;
-
-            case 'amogus':
-                if (msg.member.voice.channel) {
-                    const connection = await msg.member.voice.channel.join()
-                    connection.play(ytdl('https://www.youtube.com/watch?v=5DlROhT8NgU&ab_channel=OnanjoOnanjo',
-                        {
-                            filter: 'audioonly',
-                            volume: '0.5',
-                        })
-                    );
-                } else {
-                    msg.channel.send('Você precisa estar num canal de voz para executar este comando')
-                }
-                break;
-            case 'comandos':
-                msg.channel.send(comandos)
-                break;
-            case 'CoinFlip cara':
-                msg.channel.send('Então eu escolho coroa :coin:, GL HF')
-                msg.channel.send('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
-                random = Math.floor(Math.random() * 2)
-                if(random == 1){
-                    setTimeout(function () { msg.channel.send('Caiu cara :coin: , você ganhou! :crown: :clap: '); }, 2000);
+                case 'monki':
+                    switch (args[1]) {
+                        case 'help':
+                            canal.send('O comando #monki envia um gif de monki')
+                            canal.send('Use o #comandos para ver seus parâmetros')
+                            break;
+                        case 'flip':
+                            canal.send('https://media.tenor.com/images/f8275fe31d37d85cc085d0f0bb79c2d5/tenor.gif')
+                            break;
+                        case 'ice':
+                            canal.send('https://media1.tenor.com/images/7644e771ae17d0221c10bfc0369b9719/tenor.gif?itemid=20254327')
+                            break;
+                        default:
+                            canal.send('Parâmetro não encontrado vadia, use o #comandos para ver os parâmetros disponíveis')
+                            break;
                     
-                } else {
-                    setTimeout(function () { msg.channel.send('Caiu coroa :coin: , você perdeu! :flushed: :clap: '); }, 2000);
-                }
+                    }
+                    break;
+                
+                case 'ban':
+                    if (args[1] === 'help') {
+                        canal.send('O comando #ban lhe da uma porcentagem aleátoria de taxa de ban')
+                        canal.send('Use o #comandos para ver seus parâmetros')
+                    } else {
+                        random = Math.floor(Math.random() * 100) + "%"
+                        canal.send('Você precisa estar num canal de voz para executar este comando')
+                    }
+                    break;
+                case 'comandos':
+                    const commands = new Discord.MessageEmbed()
+                        .setColor('#0099ff') // cor do ladinho
+                        .setTitle('Lista dos Comandos') //titulo
+                        .setAuthor('MineBot')
+                        .setDescription('Listagem de todos os comandos do bot e seus parâmetros')
+                        .setThumbnail('https://static.wikia.nocookie.net/minecraft_gamepedia/images/b/b0/Impulse_Command_Block_JE3_BE1.png/revision/latest?cb=20191218141255')
+                        .addFields(
+                            { name: 'Comandos', value: comandos, inline: true},
+                            { name: 'Parâmetros', value: parametros, inline: true},
+                            { name: 'Help', value: 'Todos os comandos tem o parâmetro help'}
+                        )
+                        .setImage('https://i0.wp.com/www.i-tecnico.pt/wp-content/uploads/2017/02/Linha-de-comandos-001.png')
+                    canal.send(commands)
+                    break;
+                case 'CoinFlip':
+                    switch (args[1]) {
+                        case 'cara':
+                            canal.send('Então eu escolho coroa :coin:, GL HF')
+                            canal.send('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
+                            random = Math.floor(Math.random() * 2)
+                            if (random == 1) {
+                                setTimeout(function () { canal.send('Caiu cara :coin: , você ganhou! :crown: :clap: '); }, 2000);
 
-                break;
-            case 'CoinFlip coroa':
-                msg.channel.send('Então eu escolho cara :coin:, GL HF')
-                msg.channel.send('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
-                random = Math.floor(Math.random() * 2)
-                if (random == 1) {
-                    setTimeout(function () { msg.channel.send('Caiu coroa :coin: , você ganhou! :flushed: :clap: '); }, 2000);
-                } else {
-                    setTimeout(function () { msg.channel.send('Caiu cara :coin: , você perdeu! :flushed: :clap: '); }, 2000);
-                }
-                break;
-            default:
-                msg.channel.send('Comando não encontrado vadia')
-                break;
+                            } else {
+                                setTimeout(function () { canal.send('Caiu coroa :coin: , você perdeu! :flushed: :clap: '); }, 2000);
+                            }
+                            break;
+                        case 'coroa':
+                            canal.send('Então eu escolho cara :coin:, GL HF')
+                            canal.send('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
+                            random = Math.floor(Math.random() * 2)
+                            if (random == 1) {
+                                setTimeout(function () { canal.send('Caiu coroa :coin: , você ganhou! :flushed: :clap: '); }, 2000);
+                            } else {
+                                setTimeout(function () { canal.send('Caiu cara :coin: , você perdeu! :flushed: :clap: '); }, 2000);
+                            }
+                            break;
+
+                        case 'help':
+                            canal.send('O comando #CointFlip joga uma moeda pro alto e diz se caiu cara ou coroa')
+                            canal.send('Use o #comandos para ver seus parâmetros')
+                            break;
+                        default:
+                            canal.send('Parâmetro não encontrado vadia, use o #comandos para ver os parâmetros disponíveis')
+                            break;
+                    }
+                    break;
+                case 'calado':
+                    if (args[1] === 'help') {
+                        canal.send('O comando #calado manda alguém calar a boca')
+                        canal.send('Use o #comandos para ver seus parâmetros')
+                    } else if (args[1]){
+                        canal.send('https://tenor.com/view/rainn-wilson-shh-secret-prank-gif-17131726')
+                        canal.send(`Calado ${args[1]}!!!!`)
+                    } else {
+                        canal.send('https://tenor.com/view/rainn-wilson-shh-secret-prank-gif-17131726')
+                        canal.send('Calado quem quer que seja que o cara acima pediu pra calar!!!!!')
+                    }
+                    break;
+                default:
+                    canal.send('Comando não encontrado vadia, use o #comandos para ver os comandos disponíveis')
+                    break;
+            }
         }
     }
 })
