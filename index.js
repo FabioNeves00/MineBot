@@ -66,12 +66,14 @@ client.on("message", async msg => {
                     break;
                 
                 case 'ban':
+                    random = Math.floor(Math.random() * 100) + "%"
                     if (args[1] === 'help') {
                         canal.send('O comando #ban lhe da uma porcentagem aleátoria de taxa de ban')
                         canal.send('Use o #comandos para ver seus parâmetros')
+                    } else if(args[1]){
+                        canal.send(`O ${args[1]} tem ${random} de chance de ser banido do servidor`)
                     } else {
-                        random = Math.floor(Math.random() * 100) + "%"
-                        canal.send('Você precisa estar num canal de voz para executar este comando')
+                        canal.send(`O ${msg.author.username} tem ${random} de chance de ser banido do servidor`)
                     }
                     break;
                 case 'comandos':
