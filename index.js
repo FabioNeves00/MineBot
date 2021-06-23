@@ -25,10 +25,6 @@ client.on("message", async msg => {
             var args = message.trim().split(" ");
             switch (args[0]) {
                 case 'escoliose':
-                    if (args[1] === 'help') {
-                        canal.send('O comando escoliose envia uma certa mensagem proibida em 126 países diferentes')
-                        canal.send('Use o comandos para ver seus parâmetros')
-                    }
                     const escoliose = new Discord.MessageEmbed()
                         .setColor('#0099ff') // cor do ladinho
                         .setTitle('Escoliose') //titulo
@@ -42,8 +38,13 @@ client.on("message", async msg => {
                             { name: 'escoliose', value: 'escoliose', inline: true }
                         )
                         .setImage('https://i.imgur.com/15aOQP4.png')
-                        .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');
-                    canal.send(escoliose)
+                        .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');                    
+                    if (args[1] === 'help') {
+                        canal.send('O comando escoliose envia uma certa mensagem proibida em 126 países diferentes')
+                        canal.send('Use o comandos para ver seus parâmetros')
+                    } else {
+                        canal.send(escoliose)
+                    }
                     break;
 
                 case 'monki':
