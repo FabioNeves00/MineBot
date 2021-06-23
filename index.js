@@ -144,7 +144,6 @@ client.on("message", async msg => {
                     if (args[2] >= 0 && args[2] <= 10) {
                         perm = true
                         var total = args[2] + random
-                        console.log(args, total, random);
                         if (total % 2 == 0) {
                             result = 'par'
                         } else {
@@ -169,9 +168,9 @@ client.on("message", async msg => {
                                 canal.send('https://tenor.com/view/321shoot-vasudha-pandit-sheeba-chaddha-mirzapur-s2-%E0%A4%97%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%9A%E0%A4%B2%E0%A4%A8%E0%A4%BE-gif-18876677')
                                 canal.send(`Eu escolhi par e coloquei o valor ${random}, resultando num total de ${total}, sendo assim ${result}.`)
                                 if (result == args[1]) {
-                                    canal.send('Você perdeu!! :flushed:')
-                                } else {
                                     canal.send('Você ganhou!! :crown:')
+                                } else {
+                                    canal.send('Você perdeu!! :flushed:')
                                 }
                                 break;
                             case 'help':
