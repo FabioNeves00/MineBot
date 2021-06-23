@@ -7,6 +7,7 @@ let prefix = process.env.prefix
 
 var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado', 'ParOuImpar']
 var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario', 'par, impar, valor']
+var choice;
 
 client.on('ready', () => {
     console.log('Logged as => ' + client.user.tag);
@@ -25,6 +26,10 @@ client.on("message", async msg => {
             var args = message.trim().split(" ");
             switch (args[0]) {
                 case 'escoliose':
+                    if (args[1] === 'help') {
+                        canal.send('O comando escoliose envia uma certa mensagem proibida em 126 países diferentes')
+                        canal.send('Use o comandos para ver seus parâmetros')
+                    }
                     const escoliose = new Discord.MessageEmbed()
                         .setColor('#0099ff') // cor do ladinho
                         .setTitle('Escoliose') //titulo
@@ -38,13 +43,8 @@ client.on("message", async msg => {
                             { name: 'escoliose', value: 'escoliose', inline: true }
                         )
                         .setImage('https://i.imgur.com/15aOQP4.png')
-                        .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');                    
-                    if (args[1] === 'help') {
-                        canal.send('O comando escoliose envia uma certa mensagem proibida em 126 países diferentes')
-                        canal.send('Use o comandos para ver seus parâmetros')
-                    } else {
-                        canal.send(escoliose)
-                    }
+                        .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');
+                    canal.send(escoliose)
                     break;
 
                 case 'monki':
@@ -62,19 +62,19 @@ client.on("message", async msg => {
                         default:
                             canal.send('Parâmetro não encontrado vadia, use o #comandos para ver os parâmetros disponíveis')
                             break;
-                    
+
                     }
                     break;
-                
+
                 case 'ban':
                     random = Math.floor(Math.random() * 100) + "%"
                     if (args[1] === 'help') {
                         canal.send('O comando ban lhe da uma porcentagem aleátoria de taxa de ban')
                         canal.send('Use o comandos para ver seus parâmetros')
-                    } else if(args[1]){
-                        canal.send(`${args[1]} tem ${random} de chance de tomar um bonk do martelo do ban`)
+                    } else if (args[1]) {
+                        canal.send(`O ${args[1]} tem ${random} de chance de ser banido do servidor`)
                     } else {
-                        canal.send(`${msg.author.username} tem ${random} de chance de tomar um bonk do martelo do ban`)
+                        canal.send(`O ${msg.author.username} tem ${random} de chance de ser banido do servidor`)
                     }
                     break;
                 case 'comandos':
@@ -85,9 +85,9 @@ client.on("message", async msg => {
                         .setDescription(`Apresentação dos comandos do bot e seus parâmetros ( Prefixo = ${process.env.prefix} )`)
                         .setThumbnail('https://static.wikia.nocookie.net/minecraft_gamepedia/images/b/b0/Impulse_Command_Block_JE3_BE1.png/revision/latest?cb=20191218141255')
                         .addFields(
-                            { name: 'Comandos', value: comandos, inline: true},
-                            { name: 'Parâmetros', value: parametros, inline: true},
-                            { name: 'Help', value: 'Todos os comandos tem o parâmetro help'}
+                            { name: 'Comandos', value: comandos, inline: true },
+                            { name: 'Parâmetros', value: parametros, inline: true },
+                            { name: 'Help', value: 'Todos os comandos tem o parâmetro help' }
                         )
                         .setImage('https://i0.wp.com/www.i-tecnico.pt/wp-content/uploads/2017/02/Linha-de-comandos-001.png')
                     canal.send(commands)
@@ -129,7 +129,7 @@ client.on("message", async msg => {
                     if (args[1] === 'help') {
                         canal.send('O comando calado manda alguém calar a boca')
                         canal.send('Use o comandos para ver seus parâmetros')
-                    } else if (args[1]){
+                    } else if (args[1]) {
                         canal.send('https://tenor.com/view/rainn-wilson-shh-secret-prank-gif-17131726')
                         canal.send(`Calado ${args[1]}!!!!`)
                     } else {
@@ -154,7 +154,7 @@ client.on("message", async msg => {
                         perm = false
                         canal.send('Valor inserido é inválido')
                     }
-                    if(perm == true){
+                    if (perm == true) {
                         switch (args[1]) {
                             case 'par':
                                 canal.send('https://tenor.com/view/321shoot-vasudha-pandit-sheeba-chaddha-mirzapur-s2-%E0%A4%97%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%9A%E0%A4%B2%E0%A4%A8%E0%A4%BE-gif-18876677')
@@ -180,11 +180,59 @@ client.on("message", async msg => {
                                 break;
                             default:
                                 canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
-                                
+
                                 break;
                         }
                     }
+                    break;
+                case 'joquempo':
                     
+                    choice = ['pedra', 'papel', 'tesoura']
+                    random = Math.floor(Math.random() * 3)
+                    canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
+                    switch (args[1]) {
+                        case 'papel':
+                            if(choice[random] === 'pedra'){
+                                canal.send('Você ganhou! :crown:')
+                            }
+                            if(choice[random] === 'papel'){
+                                canal.send('Empate! :laughing:')
+                            }
+                            if(choice[random] === 'tesoura'){
+                                canal.send('Você perdeu! :flushed:')
+                            }
+                            break;
+                        case 'pedra':
+                            if(choice[random] === 'tesoura'){
+                                canal.send('Você ganhou! :crown:')
+                            }
+                            if(choice[random] === 'pedra'){
+                                canal.send('Empate! :laughing:')
+                            }
+                            if(choice[random] === 'papel'){
+                                canal.send('Você perdeu! :flushed:')
+                            }
+                            break;
+                        case 'tesoura':
+                            if(choice[random] === 'papel'){
+                                canal.send('Você ganhou! :crown:')
+                            }
+                            if(choice[random] === 'tesoura'){
+                                canal.send('Empate! :laughing:')
+                            }
+                            if(choice[random] === 'pedra'){
+                                canal.send('Você perdeu! :flushed:')
+                            }
+                            break;
+                        case 'help':
+                            canal.send('O comando joquempo faz um jogo de pedra, papel e tesoura')
+                            canal.send('Uso o comando comandos para ver os possiveis parâmetros')
+                            break;
+
+                        default:
+                            canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                            break;
+                    }
                     break;
                 default:
                     canal.send('Comando não encontrado vadia, use o comandos para ver os comandos disponíveis')
