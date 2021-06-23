@@ -5,8 +5,8 @@ require('dotenv/config')
 
 let prefix = process.env.prefix
 
-var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado']
-var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario']
+var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado', 'ParOuImpar']
+var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario', 'par, impar, valor']
 
 client.on('ready', () => {
     console.log('Logged as => ' + client.user.tag);
@@ -26,8 +26,8 @@ client.on("message", async msg => {
             switch (args[0]) {
                 case 'escoliose':
                     if (args[1] === 'help') {
-                        canal.send('O comando #escoliose envia uma certa mensagem proibida em 126 países diferentes')
-                        canal.send('Use o #comandos para ver seus parâmetros')
+                        canal.send('O comando escoliose envia uma certa mensagem proibida em 126 países diferentes')
+                        canal.send('Use o comandos para ver seus parâmetros')
                     }
                     const escoliose = new Discord.MessageEmbed()
                         .setColor('#0099ff') // cor do ladinho
@@ -68,8 +68,8 @@ client.on("message", async msg => {
                 case 'ban':
                     random = Math.floor(Math.random() * 100) + "%"
                     if (args[1] === 'help') {
-                        canal.send('O comando #ban lhe da uma porcentagem aleátoria de taxa de ban')
-                        canal.send('Use o #comandos para ver seus parâmetros')
+                        canal.send('O comando ban lhe da uma porcentagem aleátoria de taxa de ban')
+                        canal.send('Use o comandos para ver seus parâmetros')
                     } else if(args[1]){
                         canal.send(`O ${args[1]} tem ${random} de chance de ser banido do servidor`)
                     } else {
@@ -78,10 +78,10 @@ client.on("message", async msg => {
                     break;
                 case 'comandos':
                     const commands = new Discord.MessageEmbed()
-                        .setColor('#0099ff') // cor do ladinho
-                        .setTitle('Lista dos Comandos') //titulo
+                        .setColor('##ffa500') // cor do ladinho
+                        .setTitle('Lista de Comandos') //titulo
                         .setAuthor('MineBot')
-                        .setDescription('Listagem de todos os comandos do bot e seus parâmetros')
+                        .setDescription(`Apresentação dos comandos do bot e seus parâmetros ( Prefixo = ${process.env.prefix} )`)
                         .setThumbnail('https://static.wikia.nocookie.net/minecraft_gamepedia/images/b/b0/Impulse_Command_Block_JE3_BE1.png/revision/latest?cb=20191218141255')
                         .addFields(
                             { name: 'Comandos', value: comandos, inline: true},
@@ -116,18 +116,18 @@ client.on("message", async msg => {
                             break;
 
                         case 'help':
-                            canal.send('O comando #CointFlip joga uma moeda pro alto e diz se caiu cara ou coroa')
-                            canal.send('Use o #comandos para ver seus parâmetros')
+                            canal.send('O comando CointFlip joga uma moeda pro alto e diz se caiu cara ou coroa')
+                            canal.send('Use o comandos para ver seus parâmetros')
                             break;
                         default:
-                            canal.send('Parâmetro não encontrado vadia, use o #comandos para ver os parâmetros disponíveis')
+                            canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
                             break;
                     }
                     break;
                 case 'calado':
                     if (args[1] === 'help') {
-                        canal.send('O comando #calado manda alguém calar a boca')
-                        canal.send('Use o #comandos para ver seus parâmetros')
+                        canal.send('O comando calado manda alguém calar a boca')
+                        canal.send('Use o comandos para ver seus parâmetros')
                     } else if (args[1]){
                         canal.send('https://tenor.com/view/rainn-wilson-shh-secret-prank-gif-17131726')
                         canal.send(`Calado ${args[1]}!!!!`)
@@ -136,8 +136,58 @@ client.on("message", async msg => {
                         canal.send('Calado quem quer que seja que o cara acima pediu pra calar!!!!!')
                     }
                     break;
+                case 'ParOuImpar':
+                    let result;
+                    let perm;
+                    args[2] = Number(args[2])
+                    random = Math.floor(Math.random() * 10)
+                    if (args[2] >= 0 && args[2] <= 10) {
+                        perm = true
+                        var total = args[2] + random
+                        console.log(args, total, random);
+                        if (total % 2 == 0) {
+                            result = 'par'
+                        } else {
+                            result = 'impar'
+                        }
+                    } else {
+                        perm = false
+                        canal.send('Valor inserido é inválido')
+                    }
+                    if(perm == true){
+                        switch (args[1]) {
+                            case 'par':
+                                canal.send('https://tenor.com/view/321shoot-vasudha-pandit-sheeba-chaddha-mirzapur-s2-%E0%A4%97%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%9A%E0%A4%B2%E0%A4%A8%E0%A4%BE-gif-18876677')
+                                canal.send(`Eu escolhi ímpar e coloquei o valor ${random}, resultando num total de ${total}, sendo assim ${result}.`)
+                                if (result == args[1]) {
+                                    canal.send('Você ganhou!! :crown:')
+                                } else {
+                                    canal.send('Você perdeu!! :flushed:')
+                                }
+                                break;
+                            case 'impar':
+                                canal.send('https://tenor.com/view/321shoot-vasudha-pandit-sheeba-chaddha-mirzapur-s2-%E0%A4%97%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%9A%E0%A4%B2%E0%A4%A8%E0%A4%BE-gif-18876677')
+                                canal.send(`Eu escolhi par e coloquei o valor ${random}, resultando num total de ${total}, sendo assim ${result}.`)
+                                if (result == args[1]) {
+                                    canal.send('Você perdeu!! :flushed:')
+                                } else {
+                                    canal.send('Você ganhou!! :crown:')
+                                }
+                                break;
+                            case 'help':
+                                canal.send('O comando ParOuImpar recebe 2 parâmetros, a sua escolha de aposta e o valor a ser jogado.')
+                                canal.send('Use o comandos para ver seus parâmetros')
+                                break;
+                            default:
+                                canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                                
+                                break;
+                        }
+                    }
+                    
+                    break;
                 default:
-                    canal.send('Comando não encontrado vadia, use o #comandos para ver os comandos disponíveis')
+                    canal.send('Comando não encontrado vadia, use o comandos para ver os comandos disponíveis')
                     break;
             }
         }
