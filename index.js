@@ -1,12 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const ytdl = require('ytdl-core');
+const fetch = require('node-fetch');
 require('dotenv/config')
 
 let prefix = process.env.prefix
 
-var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado', 'ParOuImpar']
-var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario', 'par, impar, valor']
+
+var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado', 'ParOuImpar', 'joquempo', 'animal']
+var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario', 'par, impar, valor', 'pedra, papel ou tesoura', 'None, cat, dog ou fox']
 var choice;
 
 client.on('ready', () => {
@@ -186,52 +187,101 @@ client.on("message", async msg => {
                     }
                     break;
                 case 'joquempo':
-                    
+
                     choice = ['pedra', 'papel', 'tesoura']
                     random = Math.floor(Math.random() * 3)
                     canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                     switch (args[1]) {
                         case 'papel':
-                            if(choice[random] === 'pedra'){
-                                canal.send('Você ganhou! :crown:')
+                            if (choice[random] === 'pedra') {
+                                canal.send('Eu joguei pedra, você ganhou! :crown:')
                             }
-                            if(choice[random] === 'papel'){
-                                canal.send('Empate! :laughing:')
+                            if (choice[random] === 'papel') {
+                                canal.send('Eu joguei papel, empate! :laughing:')
                             }
-                            if(choice[random] === 'tesoura'){
-                                canal.send('Você perdeu! :flushed:')
+                            if (choice[random] === 'tesoura') {
+                                canal.send('Eu joguei tesoura, você perdeu! :flushed:')
                             }
                             break;
                         case 'pedra':
-                            if(choice[random] === 'tesoura'){
-                                canal.send('Você ganhou! :crown:')
+                            if (choice[random] === 'tesoura') {
+                                canal.send('Eu joguei tesoura, você ganhou! :crown:')
                             }
-                            if(choice[random] === 'pedra'){
-                                canal.send('Empate! :laughing:')
+                            if (choice[random] === 'pedra') {
+                                canal.send('Eu joguei pedra, empate! :laughing:')
                             }
-                            if(choice[random] === 'papel'){
-                                canal.send('Você perdeu! :flushed:')
+                            if (choice[random] === 'papel') {
+                                canal.send('Eu joguei papel, eocê perdeu! :flushed:')
                             }
                             break;
                         case 'tesoura':
-                            if(choice[random] === 'papel'){
-                                canal.send('Você ganhou! :crown:')
+                            if (choice[random] === 'papel') {
+                                canal.send('Eu joguei papel, você ganhou! :crown:')
                             }
-                            if(choice[random] === 'tesoura'){
-                                canal.send('Empate! :laughing:')
+                            if (choice[random] === 'tesoura') {
+                                canal.send('Eu joguei tesoura, empate! :laughing:')
                             }
-                            if(choice[random] === 'pedra'){
-                                canal.send('Você perdeu! :flushed:')
+                            if (choice[random] === 'pedra') {
+                                canal.send('Eu joguei pedra, você perdeu! :flushed:')
                             }
                             break;
                         case 'help':
                             canal.send('O comando joquempo faz um jogo de pedra, papel e tesoura')
-                            canal.send('Uso o comando comandos para ver os possiveis parâmetros')
+                            canal.send('Use o comando comandos para ver os possiveis parâmetros')
                             break;
 
                         default:
                             canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
                             break;
+                    }
+                    break;
+                case 'animal':
+                    let api = ['https://aws.random.cat/meow', 'https://random.dog/woof.json', 'https://randomfox.ca/floof/', 'http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true']
+                    if (args[1]) {
+                        switch (args[1]) {
+                            case 'cat':
+                                const { file } = await fetch(api[0]).then(response => response.json());
+                                canal.send(file)
+                                break;
+                            case 'dog':
+                                const { url } = await fetch(api[1]).then(response => response.json());
+                                canal.send(url)
+                                break;
+                            case 'fox':
+                                const { image } = await fetch(api[2]).then(response => response.json());
+                                canal.send(image)
+                                break;
+                            case 'help':
+                                canal.send('O comando animal envia uma foto de um doguinho ou um gato se não tiver parâmetro, o parâmetro irá definir qual animal será enviado')
+                                canal.send('Use o comando comandos para ver os possiveis parâmetros')
+                                break;
+                            default:
+                                canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                                break;
+                        }
+                    } else {
+                        random = Math.floor(Math.random() * api.length)
+                        console.log(random, api[random]);
+                        switch (random) {
+                            case 0:
+                                const { file } = await fetch(api[random]).then(response => response.json());
+                                canal.send(file)
+                                break;
+                            case 1:
+                                const { url } = await fetch(api[random]).then(response => response.json());
+                                canal.send(url)
+                                break;
+                            case 2:
+                                const { image } = await fetch(api[random]).then(response => response.json());
+                                canal.send(image)
+                                break;
+                            case 3:
+                                const img = await fetch(api[random]).then(response => response.json());
+                                canal.send(img[0])
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
                 default:
