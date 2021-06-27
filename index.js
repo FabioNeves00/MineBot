@@ -9,10 +9,11 @@ let prefix = process.env.prefix
 var comandos = ['escoliose', 'monki', 'ban', 'comandos', 'CoinFlip', 'calado', 'ParOuImpar', 'joquempo', 'animal']
 var parametros = ['None', 'flip, ice', 'None, @usuario', 'None', 'cara, coroa', '@usuario', 'par, impar, valor', 'pedra, papel ou tesoura', 'None, cat, dog ou fox']
 var choice;
+var cor = '#4CBD49'
 
 client.on('ready', () => {
     console.log('Logged as => ' + client.user.tag);
-    client.user.setActivity('Minecraft LMAO', { type: 'PLAYING' })
+    client.user.setActivity('Fabo ta testando', { type: 'WATCHING' })
 
 })
 
@@ -32,7 +33,7 @@ client.on("message", async msg => {
                         canal.send('Use o comandos para ver seus parâmetros')
                     }
                     const escoliose = new Discord.MessageEmbed()
-                        .setColor('#0099ff') // cor do ladinho
+                        .setColor(cor) // cor do ladinho
                         .setTitle('Escoliose') //titulo
                         .setURL('https://i.imgur.com/15aOQP4.png') // url de click
                         .setAuthor('escoliose?', 'https://i.imgur.com/15aOQP4.png', 'https://i.imgur.com/15aOQP4.png')
@@ -51,8 +52,18 @@ client.on("message", async msg => {
                 case 'monki':
                     switch (args[1]) {
                         case 'help':
-                            canal.send('O comando #monki envia um gif de monki')
-                            canal.send('Use o #comandos para ver seus parâmetros')
+                            const help = new Discord.MessageEmbed()
+                                .setColor(cor)
+                                .setTitle('Ajuda: monki')
+                                .setAuthor('Mine Bot')
+                                .addFields(
+                                    { name: 'Explicação', value: 'Envia um gif de mamaco no chat' },
+                                    { name: 'Parâmetros', value: 'flip, ice', inline: true },
+                                    { name: 'Exemplo', value: '?monki flip' }
+                                )
+                                .setImage('https://media.tenor.com/images/f8275fe31d37d85cc085d0f0bb79c2d5/tenor.gif')
+                                .setFooter('Mine Bot');
+                            canal.send(help)
                             break;
                         case 'flip':
                             canal.send('https://media.tenor.com/images/f8275fe31d37d85cc085d0f0bb79c2d5/tenor.gif')
@@ -61,7 +72,16 @@ client.on("message", async msg => {
                             canal.send('https://media1.tenor.com/images/7644e771ae17d0221c10bfc0369b9719/tenor.gif?itemid=20254327')
                             break;
                         default:
-                            canal.send('Parâmetro não encontrado vadia, use o #comandos para ver os parâmetros disponíveis')
+                            const notFound = new Discord.MessageEmbed()
+                                .setColor(cor)
+                                .setTitle('Ajuda: Parâmetro não encontrado')
+                                .setAuthor('Mine Bot')
+                                .addFields(
+                                    { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
+                                )
+                                .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                                .setFooter('Mine Bot');
+                            canal.send(notFound)
                             break;
 
                     }
@@ -70,8 +90,18 @@ client.on("message", async msg => {
                 case 'ban':
                     random = Math.floor(Math.random() * 100) + "%"
                     if (args[1] === 'help') {
-                        canal.send('O comando ban lhe da uma porcentagem aleátoria de taxa de ban')
-                        canal.send('Use o comandos para ver seus parâmetros')
+                        const help = new Discord.MessageEmbed()
+                            .setColor(cor)
+                            .setTitle('Ajuda: ban')
+                            .setAuthor('Mine Bot')
+                            .addFields(
+                                { name: 'Explicação', value: 'Define uma porcentagem taxa de ban, aleátoria, para o usuário' },
+                                { name: 'Parâmetros', value: '@ do usuário, nada', inline: true },
+                                { name: 'Exemplo', value: '?ban @MineBot#0001' }
+                            )
+                            .setImage('https://tenor.com/view/elmo-fire-ban-syntheticllama-gif-21044291')
+                            .setFooter('Mine Bot');
+                        canal.send(help)
                     } else if (args[1]) {
                         canal.send(`O ${args[1]} tem ${random} de chance de ser banido do servidor`)
                     } else {
@@ -118,18 +148,47 @@ client.on("message", async msg => {
                             break;
 
                         case 'help':
-                            canal.send('O comando CointFlip joga uma moeda pro alto e diz se caiu cara ou coroa')
-                            canal.send('Use o comandos para ver seus parâmetros')
+                            const help = new Discord.MessageEmbed()
+                                .setColor(cor)
+                                .setTitle('Ajuda: CoinFlip')
+                                .setAuthor('Mine Bot')
+                                .addFields(
+                                    { name: 'Explicação', value: 'É um 1v1 de cara ou coroa contra o bot' },
+                                    { name: 'Parâmetros', value: 'cara, coroa', inline: true },
+                                    { name: 'Exemplo', value: '?CoinFlip coroa' }
+                                )
+                                .setImage('https://tenor.com/view/coin-toss-coin-toss-gif-5017733')
+                                .setFooter('Mine Bot');
+                            canal.send(help)
                             break;
                         default:
-                            canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                            const notFound = new Discord.MessageEmbed()
+                                .setColor(cor)
+                                .setTitle('Ajuda: Parâmetro não encontrado')
+                                .setAuthor('Mine Bot')
+                                .addFields(
+                                    { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
+                                )
+                                .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                                .setFooter('Mine Bot');
+                            canal.send(notFound)
                             break;
                     }
                     break;
                 case 'calado':
                     if (args[1] === 'help') {
-                        canal.send('O comando calado manda alguém calar a boca')
-                        canal.send('Use o comandos para ver seus parâmetros')
+                        const help = new Discord.MessageEmbed()
+                            .setColor(cor)
+                            .setTitle('Ajuda: calado')
+                            .setAuthor('Mine Bot')
+                            .addFields(
+                                { name: 'Explicação', value: 'Manda alguém ficar calado' },
+                                { name: 'Parâmetros', value: '@ do usuário, nada', inline: true },
+                                { name: 'Exemplo', value: '?calado @MineBot#0001' }
+                            )
+                            .setImage('https://tenor.com/view/rainn-wilson-shh-secret-prank-gif-17131726')
+                            .setFooter('Mine Bot');
+                        canal.send(help)
                     } else if (args[1]) {
                         canal.send('https://tenor.com/view/rainn-wilson-shh-secret-prank-gif-17131726')
                         canal.send(`Calado ${args[1]}!!!!`)
@@ -151,9 +210,33 @@ client.on("message", async msg => {
                         } else {
                             result = 'impar'
                         }
-                    } else {
+                    } else if(args[2]){
                         perm = false
-                        canal.send('Valor inserido é inválido')
+                        const notFound = new Discord.MessageEmbed()
+                            .setColor(cor)
+                            .setTitle('Ajuda: Valor Inválido')
+                            .setAuthor('Mine Bot')
+                            .addFields(
+                                { name: 'Explicação', value: 'Valor Inválido linda, adicione um valor para poder jogar contra o bot' },
+                            )
+                            .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                            .setFooter('Mine Bot');
+                        canal.send(notFound)
+                    }
+                    if (args[1] === 'help') {
+                        const help = new Discord.MessageEmbed()
+                            .setColor(cor)
+                            .setTitle('Ajuda: ParOuImpar')
+                            .setAuthor('Mine Bot')
+                            .addFields(
+                                { name: 'Explicação', value: 'É um 1v1 de par ou impar contra o bot' },
+                                { name: 'Parâmetros', value: 'par ou impar, valor', inline: true },
+                                { name: 'Observação', value: 'É obrigátorio o envio um valor na mensagem, que seja menor que 10 e maior que -1' },
+                                { name: 'Exemplo', value: '?ParOuImpar par 10' }
+                            )
+                            .setImage('https://tenor.com/view/321shoot-vasudha-pandit-sheeba-chaddha-mirzapur-s2-%E0%A4%97%E0%A5%8B%E0%A4%B2%E0%A5%80%E0%A4%9A%E0%A4%B2%E0%A4%A8%E0%A4%BE-gif-18876677')
+                            .setFooter('Mine Bot');
+                        canal.send(help)
                     }
                     if (perm == true) {
                         switch (args[1]) {
@@ -175,12 +258,17 @@ client.on("message", async msg => {
                                     canal.send('Você perdeu!! :flushed:')
                                 }
                                 break;
-                            case 'help':
-                                canal.send('O comando ParOuImpar recebe 2 parâmetros, a sua escolha de aposta e o valor a ser jogado.')
-                                canal.send('Use o comandos para ver seus parâmetros')
-                                break;
                             default:
-                                canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                                const notFound = new Discord.MessageEmbed()
+                                    .setColor(cor)
+                                    .setTitle('Ajuda: Parâmetro não encontrado')
+                                    .setAuthor('Mine Bot')
+                                    .addFields(
+                                        { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
+                                    )
+                                    .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                                    .setFooter('Mine Bot');
+                                canal.send(notFound)
 
                                 break;
                         }
@@ -190,48 +278,75 @@ client.on("message", async msg => {
 
                     choice = ['pedra', 'papel', 'tesoura']
                     random = Math.floor(Math.random() * 3)
-                    canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                     switch (args[1]) {
                         case 'papel':
                             if (choice[random] === 'pedra') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei pedra, você ganhou! :crown:')
                             }
                             if (choice[random] === 'papel') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei papel, empate! :laughing:')
                             }
                             if (choice[random] === 'tesoura') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei tesoura, você perdeu! :flushed:')
                             }
                             break;
                         case 'pedra':
                             if (choice[random] === 'tesoura') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei tesoura, você ganhou! :crown:')
                             }
                             if (choice[random] === 'pedra') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei pedra, empate! :laughing:')
                             }
                             if (choice[random] === 'papel') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei papel, eocê perdeu! :flushed:')
                             }
                             break;
                         case 'tesoura':
                             if (choice[random] === 'papel') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei papel, você ganhou! :crown:')
                             }
                             if (choice[random] === 'tesoura') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei tesoura, empate! :laughing:')
                             }
                             if (choice[random] === 'pedra') {
+                                canal.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
                                 canal.send('Eu joguei pedra, você perdeu! :flushed:')
                             }
                             break;
                         case 'help':
-                            canal.send('O comando joquempo faz um jogo de pedra, papel e tesoura')
-                            canal.send('Use o comando comandos para ver os possiveis parâmetros')
+                            const help = new Discord.MessageEmbed()
+                                .setColor(cor)
+                                .setTitle('Ajuda: ParOuImpar')
+                                .setAuthor('Mine Bot')
+                                .addFields(
+                                    { name: 'Explicação', value: 'É um 1v1 de pedra, papel ou tesoura contra o bot' },
+                                    { name: 'Parâmetros', value: 'pedra, papel ou tesoura', inline: true },
+                                    { name: 'Exemplo', value: '?joquempo pedra' }
+                                )
+                                .setImage('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
+                                .setFooter('Mine Bot');
+                            canal.send(help)
                             break;
 
                         default:
-                            canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                            const notFound = new Discord.MessageEmbed()
+                                .setColor(cor)
+                                .setTitle('Ajuda: Parâmetro não encontrado')
+                                .setAuthor('Mine Bot')
+                                .addFields(
+                                    { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
+                                )
+                                .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                                .setFooter('Mine Bot');
+                            canal.send(notFound)
                             break;
                     }
                     break;
@@ -252,11 +367,30 @@ client.on("message", async msg => {
                                 canal.send(image)
                                 break;
                             case 'help':
-                                canal.send('O comando animal envia uma foto de um doguinho ou um gato se não tiver parâmetro, o parâmetro irá definir qual animal será enviado')
-                                canal.send('Use o comando comandos para ver os possiveis parâmetros')
+                                const help = new Discord.MessageEmbed()
+                                    .setColor(cor)
+                                    .setTitle('Ajuda: animal')
+                                    .setAuthor('Mine Bot')
+                                    .addFields(
+                                        { name: 'Explicação', value: 'Envia uma foto de um gato ou cachorro ou raposa no chat' },
+                                        { name: 'Parâmetros', value: 'fox, dog, cat, nada', inline: true },
+                                        { name: 'Exemplo', value: '?animal fox' }
+                                    )
+                                    .setImage('http://images.unsplash.com/photo-1474511320723-9a56873867b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8MXx8cmVkJTIwZm94fHwwfHx8fDE2MjQwNDM5MTA&ixlib=rb-1.2.1&q=80&w=1080')
+                                    .setFooter('Mine Bot');
+                                canal.send(help)
                                 break;
                             default:
-                                canal.send('Parâmetro não encontrado vadia, use o comandos para ver os parâmetros disponíveis')
+                                const notFound = new Discord.MessageEmbed()
+                                    .setColor(cor)
+                                    .setTitle('Ajuda: Parâmetro não encontrado')
+                                    .setAuthor('Mine Bot')
+                                    .addFields(
+                                        { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
+                                    )
+                                    .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                                    .setFooter('Mine Bot');
+                                canal.send(notFound)
                                 break;
                         }
                     } else {
@@ -285,26 +419,20 @@ client.on("message", async msg => {
                     }
                     break;
                 default:
-                    canal.send('Comando não encontrado vadia, use o comandos para ver os comandos disponíveis')
+                    const notFound = new Discord.MessageEmbed()
+                        .setColor(cor)
+                        .setTitle('Ajuda: Comando não encontrado')
+                        .setAuthor('Mine Bot')
+                        .addFields(
+                            { name: 'Explicação', value: 'Comando não encontrado linda, use o ?comandos para ver os comandos disponíveis' },
+                        )
+                        .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+                        .setFooter('Mine Bot');
+                    canal.send(notFound)
                     break;
             }
         }
     }
 })
-
-
-
-// client.on('ready', () => {
-//     // List servers the bot is connected to
-//     console.log("Servers:")
-//     client.guilds.forEach((guild) => {
-//         console.log(" - " + guild.name)
-
-//         // List all channels
-//         guild.channels.forEach((channel) => {
-//             console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
-//         })
-//     })
-// })
 
 client.login(process.env.bot_secret_token)
