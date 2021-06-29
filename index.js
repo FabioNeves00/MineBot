@@ -194,30 +194,35 @@ function joquempo(arg, msg)
     choice = ['pedra', 'papel', 'tesoura']
     botBet = choice[Math.floor(Math.random() * 3)]
 
-    if (arg == botBet) {
-        msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
-        msg.channel.send(`Eu joguei ${botBet}, empate! :laughing:`)
-    }
-    else if ((arg == 'pedra' && botBet == 'tesoura') || (arg == 'papel' && botBet == 'pedra') || (arg == 'tesoura' && botBet == 'papel')) {
-        msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
-        msg.channel.send(`Eu joguei ${botBet}, você ganhou! :crown:`)
-    }
-    else if (arg == 'help')
+    if (arg == 'pedra' || arg == 'papel' || arg == 'tesoura' || arg == 'help')
     {
-        const help = new Discord.MessageEmbed()
-            .setColor(cor)
-            .setTitle('Ajuda: ParOuImpar')
-            .setAuthor('Mine Bot')
-            .addFields(
-                { name: 'Explicação', value: 'É um 1v1 de pedra, papel ou tesoura contra o bot' },
-                { name: 'Parâmetros', value: 'pedra, papel ou tesoura', inline: true },
-                { name: 'Exemplo', value: '?joquempo pedra' }
-            )
-            .setImage('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-            .setFooter('Mine Bot');
-        msg.channel.send(help)
-        break;
-
+        if (arg == botBet) {
+            msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
+            msg.channel.send(`Eu joguei ${botBet}, empate! :laughing:`)
+        }
+        else if ((arg == 'pedra' && botBet == 'tesoura') || (arg == 'papel' && botBet == 'pedra') || (arg == 'tesoura' && botBet == 'papel')) {
+            msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
+            msg.channel.send(`Eu joguei ${botBet}, você ganhou! :crown:`)
+        }
+        else if (arg == 'help')
+        {
+            const help = new Discord.MessageEmbed()
+                .setColor(cor)
+                .setTitle('Ajuda: ParOuImpar')
+                .setAuthor('Mine Bot')
+                .addFields(
+                    { name: 'Explicação', value: 'É um 1v1 de pedra, papel ou tesoura contra o bot' },
+                    { name: 'Parâmetros', value: 'pedra, papel ou tesoura', inline: true },
+                    { name: 'Exemplo', value: '?joquempo pedra' }
+                )
+                .setImage('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
+                .setFooter('Mine Bot');
+            msg.channel.send(help)
+            break;
+        } else {
+            msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
+            msg.channel.send(`Eu joguei ${botBet}, você perdeu! :flushed:`)
+        }
     } else {
         const notFound = new Discord.MessageEmbed()
             .setColor(cor)
