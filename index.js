@@ -82,6 +82,8 @@ client.on("message", async msg => {
     }
 })
 
+
+
 function escoliose(arg, msg) {
     if (arg === 'help') {
         const help = new Discord.MessageEmbed()
@@ -113,6 +115,8 @@ function escoliose(arg, msg) {
         .setFooter('escoliose', 'https://i.imgur.com/15aOQP4.png');
     msg.channel.send(escoliose)
 }
+
+
 
 async function animal(arg, msg) {
     let api = ['https://aws.random.cat/meow', 'https://random.dog/woof.json', 'https://randomfox.ca/floof/', 'http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true']
@@ -183,82 +187,53 @@ async function animal(arg, msg) {
     }
 }
 
-function joquempo(arg, msg) {
 
+
+function joquempo(arg, msg)
+{
     choice = ['pedra', 'papel', 'tesoura']
-    random = Math.floor(Math.random() * 3)
-    switch (arg) {
-        case 'papel':
-            if (choice[random] === 'pedra') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei pedra, você ganhou! :crown:')
-            }
-            if (choice[random] === 'papel') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei papel, empate! :laughing:')
-            }
-            if (choice[random] === 'tesoura') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei tesoura, você perdeu! :flushed:')
-            }
-            break;
-        case 'pedra':
-            if (choice[random] === 'tesoura') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei tesoura, você ganhou! :crown:')
-            }
-            if (choice[random] === 'pedra') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei pedra, empate! :laughing:')
-            }
-            if (choice[random] === 'papel') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei papel, eocê perdeu! :flushed:')
-            }
-            break;
-        case 'tesoura':
-            if (choice[random] === 'papel') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei papel, você ganhou! :crown:')
-            }
-            if (choice[random] === 'tesoura') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei tesoura, empate! :laughing:')
-            }
-            if (choice[random] === 'pedra') {
-                msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                msg.channel.send('Eu joguei pedra, você perdeu! :flushed:')
-            }
-            break;
-        case 'help':
-            const help = new Discord.MessageEmbed()
-                .setColor(cor)
-                .setTitle('Ajuda: ParOuImpar')
-                .setAuthor('Mine Bot')
-                .addFields(
-                    { name: 'Explicação', value: 'É um 1v1 de pedra, papel ou tesoura contra o bot' },
-                    { name: 'Parâmetros', value: 'pedra, papel ou tesoura', inline: true },
-                    { name: 'Exemplo', value: '?joquempo pedra' }
-                )
-                .setImage('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
-                .setFooter('Mine Bot');
-            msg.channel.send(help)
-            break;
+    botBet = choice[Math.floor(Math.random() * 3)]
 
-        default:
-            const notFound = new Discord.MessageEmbed()
-                .setColor(cor)
-                .setTitle('Ajuda: Parâmetro não encontrado')
-                .setAuthor('Mine Bot')
-                .addFields(
-                    { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
-                )
-                .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
-                .setFooter('Mine Bot');
-            msg.channel.send(notFound)
-            break;
+    if (arg == botBet) {
+        msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
+        msg.channel.send(`Eu joguei ${botBet}, empate! :laughing:`)
+    }
+    else if ((arg == 'pedra' && botBet == 'tesoura') || (arg == 'papel' && botBet == 'pedra') || (arg == 'tesoura' && botBet == 'papel')) {
+        msg.channel.send('https://tenor.com/view/piedra-papel-tijera-gif-9508217') 
+        msg.channel.send(`Eu joguei ${botBet}, você ganhou! :crown:`)
+    }
+    else if (arg == 'help')
+    {
+        const help = new Discord.MessageEmbed()
+            .setColor(cor)
+            .setTitle('Ajuda: ParOuImpar')
+            .setAuthor('Mine Bot')
+            .addFields(
+                { name: 'Explicação', value: 'É um 1v1 de pedra, papel ou tesoura contra o bot' },
+                { name: 'Parâmetros', value: 'pedra, papel ou tesoura', inline: true },
+                { name: 'Exemplo', value: '?joquempo pedra' }
+            )
+            .setImage('https://tenor.com/view/piedra-papel-tijera-gif-9508217')
+            .setFooter('Mine Bot');
+        msg.channel.send(help)
+        break;
+
+    } else {
+        const notFound = new Discord.MessageEmbed()
+            .setColor(cor)
+            .setTitle('Ajuda: Parâmetro não encontrado')
+            .setAuthor('Mine Bot')
+            .addFields(
+                { name: 'Explicação', value: 'Parâmetro não encontrado linda, use o parâmetro help para ver os parâmetros disponíveis' },
+            )
+            .setImage('https://tenor.com/view/quby-chan-confused-huh-what-what-is-it-gif-17010842')
+            .setFooter('Mine Bot');
+        msg.channel.send(notFound)
+        break;
     }
 }
+
+
 
 function par_ou_impar(args, msg) {
     let result;
@@ -338,6 +313,8 @@ function par_ou_impar(args, msg) {
     }
 }
 
+
+
 function calado(args, msg) {
     if (args[1] === 'help') {
         const help = new Discord.MessageEmbed()
@@ -360,6 +337,8 @@ function calado(args, msg) {
         msg.channel.send(`Calado quem quer que seja que o ${msg.author.username} pediu pra calar!!!!!`)
     }
 }
+
+
 
 function coin_flip(args, msg) {
     switch (args[1]) {
@@ -414,6 +393,8 @@ function coin_flip(args, msg) {
     }
 }
 
+
+
 function ban(args, msg) {
     random = Math.floor(Math.random() * 100) + "%"
     if (args[1] === 'help') {
@@ -435,6 +416,8 @@ function ban(args, msg) {
         msg.channel.send(`O ${msg.author.username} tem ${random} de chance de ser banido do servidor`)
     }
 }
+
+
 
 function monki(args, msg) {
     switch (args[1]) {
